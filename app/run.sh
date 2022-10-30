@@ -6,12 +6,12 @@ TARGET="http://localhost:3000"
 
 mkdir -p "$LOCAL_PATH_RESULTS"
 
-# docker build -t "$APP":latest .
+docker build -t "$APP":latest .
 
-# docker run --rm -it \
-# --net=host \
-# -v "$LOCAL_PATH_RESULTS":/security/results \
-# "$APP":latest $TARGET
+docker run --rm -it \
+--net=host \
+-v "$LOCAL_PATH_RESULTS":/security/results \
+"$APP":latest $TARGET
 
 # zap basic scan
 # https://www.zaproxy.org/docs/docker/baseline-scan/
@@ -23,11 +23,11 @@ mkdir -p "$LOCAL_PATH_RESULTS"
 
 # zap full scan
 # https://www.zaproxy.org/docs/docker/full-scan/
-docker run --rm -it \
---net=host \
--v "$LOCAL_PATH_RESULTS":/zap/wrk:rw \
-owasp/zap2docker-weekly \
-zap-full-scan.py -t "$TARGET" -w zap_report_full.md
+# docker run --rm -it \
+# --net=host \
+# -v "$LOCAL_PATH_RESULTS":/zap/wrk:rw \
+# owasp/zap2docker-weekly \
+# zap-full-scan.py -t "$TARGET" -w zap_report_full.md
 
 # zap API scan
 # https://www.zaproxy.org/docs/docker/api-scan/
